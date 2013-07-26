@@ -33,10 +33,10 @@
     "grunt": "~0.4.1"
   },
   "keywords": [
-    "gruntplugin"
-    "phantom"
-    "phantomjs"
-    "screenshot"
+    "gruntplugin",
+    "phantom",
+    "phantomjs",
+    "screenshot",
     "snapshot"
   ]
 }
