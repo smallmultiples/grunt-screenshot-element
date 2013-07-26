@@ -39,6 +39,5 @@ module.exports = (grunt) ->
             ]
 
             # Launch the phantomjs task
-            console.log childArgs.join(' ')
             childProcess.execFile(phantomBin, childArgs)
     )

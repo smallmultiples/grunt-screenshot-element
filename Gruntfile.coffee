@@ -11,18 +11,10 @@ module.exports = (grunt) ->
     # Project configuration.
     grunt.initConfig(
         'screenshot-element':
-            options:
-                selector: '#main'
-                viewport:
-                    width: 1024
-                    height: 768
             chart:
-                options:
-                    selector: '.chart'
                 images: [
-                    url: 'http://www.google.fr'
-                    file: 'images/google.png'
-                    selector: '#hplogo'
+                    selector: 'body'
+                    url: 'http://sasha-project.s3.amazonaws.com/afr-prod/projects/budget1314/build.html?type=pm&dimensions=wide'
                 ]
 
     )

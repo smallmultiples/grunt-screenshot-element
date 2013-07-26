@@ -41,6 +41,7 @@ else
     page.viewportSize =
         width:  viewportWidth
         height: viewportHeight
+    page.zoom = 5
     page.open(address, (status) ->
         if status isnt 'success'
             console.error('Unable to load the address "' + address + '"!')
