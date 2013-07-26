@@ -1,0 +1,42 @@
+{
+  "name": "grunt-screenshot-element",
+  "description": "Take a screenshot of a DOM element.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/smallmultiples/grunt-screenshot-element",
+  "author": {
+    "name": "Small Multiples",
+    "email": "info@small.mu",
+    "url": "http://small.mu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/smallmultiples/grunt-screenshot-element.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smallmultiples/grunt-screenshot-element/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/smallmultiples/grunt-screenshot-element/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "phantomjs": "~1.9.1-0",
+    "grunt": "~0.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "keywords": [
+    "gruntplugin"
+    "phantom"
+    "phantomjs"
+    "screenshot"
+    "snapshot"
+  ]
+}
