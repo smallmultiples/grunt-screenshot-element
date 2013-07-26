@@ -23,6 +23,13 @@ module.exports = (grunt) ->
                     url: 'http://www.google.fr'
                     file: 'images/google.png'
                     selector: '#hplogo'
+                    css: '
+                    body {
+                        background: red
+                    }
+                    #hplogo {
+                        font-style: italic;
+                    }'
                 ]
 
     )

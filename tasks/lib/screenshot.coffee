@@ -31,6 +31,7 @@ else
     sel            = system.args[2] or 'svg'
     viewportWidth  = system.args[4] or 1024
     viewportHeight = system.args[5] or 768
+    css            = system.args[6]
 
     # Handle null value and 'null' value
     if not system.args[3] or system.args[3] is 'null'
@@ -47,7 +48,12 @@ else
             phantom.exit()
         else
             # Page.clipRect is the clipRect of the selected element
-            page.clipRect = page.evaluate((sel) ->
+            page.clipRect = page.evaluate((sel, css) ->
+                if css
+                    style = document.createElement('style')
+                    style.appendChild(document.createTextNode(css))
+                    document.head.appendChild(style)
+
                 clipRect = document.querySelector(sel).getBoundingClientRect()
                 return {
                     top: clipRect.top
@@ -55,7 +61,7 @@ else
                     width: clipRect.width
                     height: clipRect.height
                 }
-            , sel)
+            , sel, css)
 
             page.render(output)
             phantom.exit()

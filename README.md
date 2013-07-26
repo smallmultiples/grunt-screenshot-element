@@ -49,6 +49,12 @@ Default value: `{ width: 1024, height: 768 }`
 
 An object with two keys, `width` and `height`, it will set the viewport of the page.
 
+#### options.css
+Type: 'String'
+Default value: none
+
+Add CSS to the page before taking a screenshot.
+
 
 ### Images
 `images` are set for each targets, they are an array of objects, you can re-specify `options` for each image.
@@ -83,6 +89,7 @@ grunt.initConfig({
       , chart: {
             options: {
                 selector: '.chart'
+              , css: 'body { background: red; }'
             }
           , images: [
                 {

@@ -36,6 +36,7 @@ module.exports = (grunt) ->
                 image.file
                 image.viewport.width
                 image.viewport.height
+                image.css
             ]
 
             # Launch the phantomjs task
