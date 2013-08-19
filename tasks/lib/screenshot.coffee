@@ -32,7 +32,7 @@ showHelp = ->
 passNext = true
 options =
     url           : ''
-    sel           : 'body'
+    selector      : 'body'
     image         : 'screenshot-' + getDate() + '.png'
     viewportWidth : 1024
     viewportHeight: 768
@@ -94,7 +94,7 @@ else
                         width: clipRect.width
                         height: clipRect.height
                     }
-                , options.sel, options.css)
+                , options.selector, options.css)
 
                 page.render(options.image)
                 phantom.exit()
