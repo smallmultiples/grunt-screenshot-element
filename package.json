@@ -1,7 +1,7 @@
 {
   "name": "grunt-screenshot-element",
   "description": "Take a screenshot of a DOM element.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/smallmultiples/grunt-screenshot-element",
   "author": {
     "name": "Small Multiples",
@@ -25,8 +25,10 @@
   "engines": {
     "node": ">= 0.8.0"
   },
+  "dependencies": {
+    "phantomjs": "~1.9.1-0"
+  },
   "devDependencies": {
-    "phantomjs": "~1.9.1-0",
     "grunt": "~0.4.1"
   },
   "peerDependencies": {

@@ -36,6 +36,7 @@ grunt.initConfig({
 ```
 
 ### Options
+The options are by priority, from the less specific to the most precise, e.g: `options` < `your_target.options` < `your_target.files[n].options`
 
 #### options.selector
 Type: `String`
@@ -55,21 +56,21 @@ Default value: none
 
 Add CSS to the page before taking a screenshot.
 
-
-### Images
-`images` are set for each targets, they are an array of objects, you can re-specify `options` for each image.
-
-#### image.url
+#### options.url
 Type: `String`
 Default value: none
 
 The URL of the page you want to screenshot.
 
-#### image.file
+#### options.file
 Type: `String`
 Default value: ``
 
 The output of the screenshot.
+
+
+### Images
+`images` are set for each targets, they are an array of objects, you can re-specify `options` for each image.
 
 ### Usage Examples
 
@@ -107,4 +108,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
-* 2013-07-26   v0.1.0   First release
+* 2013-07-26   v0.1.1   Fixes package.json
+* 2013-07-26   v0.1.0   First release
