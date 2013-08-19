@@ -31,13 +31,13 @@ module.exports = (grunt) ->
             # The arguments for the phantomjs task
             childArgs = [
                 path.join(__dirname, 'lib/screenshot.coffee')
-                '-u' + image.url
-                '-s' + image.selector
-                '-i' + image.file
-                '-vw' + image.viewport.height
-                '-vh' + image.viewport.width
-                '-c' + image.css
-                '-t' + image.timeout
+                '-u ' + image.url
+                '-s ' + image.selector
+                '-i ' + image.file
+                '-vw ' + image.viewport.height
+                '-vh ' + image.viewport.width
+                '-c ' + image.css
+                '-t ' + image.timeout
             ]
 
             # Launch the phantomjs task
