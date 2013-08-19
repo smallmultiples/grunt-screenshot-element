@@ -1,5 +1,6 @@
 page = require('webpage').create()
 system = require('system')
+
 getDate = ->
     date = new Date()
     return date.getUTCFullYear() + '-' +
@@ -9,60 +10,93 @@ getDate = ->
         ('00' + date.getUTCMinutes()).slice(-2) + ':' +
         ('00' + date.getUTCSeconds()).slice(-2)
 
+# The parameters for the help
 params = [
-    'index.coffee'
-    'URL'
-    '[selector, svg by default]'
-    '[image, screenshot-date.png by default]'
-    '[viewport width, 1024 by default]'
-    '[viewport height, 768 by default]'
+    '-u,  --url              The page URL'
+    '-s,  --selector         [The selector, body by defaut]'
+    '-i,  --image            [The output image, screenshot-DATE.png by default]'
+    '-vw, --viewport-width   [The viewport width, 1024 by default]'
+    '-vh, --viewport-height  [The viewport height, 768 by default]'
+    '-c,  --css              [CSS rules]'
+    '-t,  --timeout          [Timeout]'
+    '-h,  --help             Show this message'
 ]
-help = [
-    '-h'
-    '--h'
-    'help'
-]
-# If ask for help or doesn't have the right number or arguments
-if system.args.length < 2 or system.args.length > params.length + 1 or help.indexOf(system.args[1]) isnt -1
-    console.log('Usage: ' + params.join(' '))
-    phantom.exit(1)
+
+showHelp = ->
+    console.log('Usage:')
+    params.forEach((param) ->
+        console.log('    ' + param)
+    )
+    phantom.exit()
+
+passNext = true
+options =
+    url           : ''
+    sel           : 'body'
+    image         : 'screenshot-' + getDate() + '.png'
+    viewportWidth : 1024
+    viewportHeight: 768
+    css           : ''
+    timeout       : 4
+system.args.forEach((arg, i) ->
+    if passNext
+        passNext = false
+        return null
+    console.log arg
+    switch arg
+        when '-u', '--url'
+            passNext = true
+            options.url = system.args[i + 1]
+        when '-s', '--selector'
+            passNext = true
+            options.selector = system.args[i + 1]
+        when '-i', '--image'
+            passNext = true
+            options.image = system.args[i + 1]
+        when '-vw', '--viewport-width'
+            passNext = true
+            options.viewportWidth = system.args[i + 1]
+        when '-vh', '--viewport-height'
+            passNext = true
+            options.viewportHeight = system.args[i + 1]
+        when '-c', '--css'
+            passNext = true
+            options.css = system.args[i + 1]
+        when '-t', '--timeout'
+            passNext = true
+            options.timeout = system.args[i + 1]
+        when '-h', '--help'
+            showHelp()
+)
+if system.args.length is 1
+    showHelp()
 else
-    address        = system.args[1]
-    sel            = system.args[2] or 'svg'
-    viewportWidth  = system.args[4] or 1024
-    viewportHeight = system.args[5] or 768
-    css            = system.args[6]
-
-    # Handle null value and 'null' value
-    if not system.args[3] or system.args[3] is 'null'
-        output = 'screenshot-' + getDate() + '.png'
-    else
-        output = system.args[3]
-
     page.viewportSize =
-        width:  viewportWidth
-        height: viewportHeight
-    page.open(address, (status) ->
+        width:  options.viewportWidth
+        height: options.viewportHeight
+    page.open(options.url, (status) ->
         if status isnt 'success'
-            console.error('Unable to load the address "' + address + '"!')
+            console.error('Unable to load the address "' + options.url + '"!')
             phantom.exit()
         else
-            # Page.clipRect is the clipRect of the selected element
-            page.clipRect = page.evaluate((sel, css) ->
-                if css
-                    style = document.createElement('style')
-                    style.appendChild(document.createTextNode(css))
-                    document.head.appendChild(style)
+            setTimeout(->
+                # Page.clipRect is the clipRect of the selected element
+                page.clipRect = page.evaluate((sel, css) ->
+                    if css
+                        style = document.createElement('style')
+                        style.appendChild(document.createTextNode(css))
+                        document.head.appendChild(style)
 
-                clipRect = document.querySelector(sel).getBoundingClientRect()
-                return {
-                    top: clipRect.top
-                    left: clipRect.left
-                    width: clipRect.width
-                    height: clipRect.height
-                }
-            , sel, css)
+                    clipRect = document.querySelector(sel).getBoundingClientRect()
+                    return {
+                        top: clipRect.top
+                        left: clipRect.left
+                        width: clipRect.width
+                        height: clipRect.height
+                    }
+                , options.sel, options.css)
 
-            page.render(output)
-            phantom.exit()
+                page.render(options.image)
+                phantom.exit()
+            options.timeout)
     )

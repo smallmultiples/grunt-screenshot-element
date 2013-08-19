@@ -51,7 +51,7 @@ Default value: `{ width: 1024, height: 768 }`
 An object with two keys, `width` and `height`, it will set the viewport of the page.
 
 #### options.css
-Type: 'String'
+Type: `String`
 Default value: none
 
 Add CSS to the page before taking a screenshot.
@@ -67,6 +67,12 @@ Type: `String`
 Default value: ``
 
 The output of the screenshot.
+
+#### options.timeout
+Type: `Number`
+Default value: `4`
+
+The number of milliseconds when after which the screenshot will be taken.
 
 
 ### Images
@@ -108,5 +114,6 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
-* 2013-07-26   v0.1.1   Fixes package.json
+* 2013-08-19   v0.1.2   Added `timeout` option
+* 2013-08-19   v0.1.1   Fixes package.json
 * 2013-07-26   v0.1.0   First release
