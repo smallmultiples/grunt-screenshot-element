@@ -4,7 +4,7 @@ https://github.com/smallmultiples/grunt-screenshot-element
 
 Copyright (c) 2013 Small Multiples
 Licensed under the MIT license.
- ###
+###
 
 module.exports = (grunt) ->
 
@@ -30,6 +30,7 @@ module.exports = (grunt) ->
                     #hplogo {
                         font-style: italic;
                     }'
+                    js: '$("#button").click()'
                 ]
 
     )

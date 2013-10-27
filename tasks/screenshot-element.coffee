@@ -37,6 +37,7 @@ module.exports = (grunt) ->
                 '-vw', image.viewport.height
                 '-vh', image.viewport.width
                 '-c', image.css
+                '-j', image.js
                 '-t', image.timeout
             ]
 

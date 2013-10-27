@@ -56,6 +56,12 @@ Default value: none
 
 Add CSS to the page before taking a screenshot.
 
+#### options.js
+Type: `String`
+Default value: none
+
+Add JavaScript to the page before taking a screenshot.
+
 #### options.url
 Type: `String`
 Default value: none
@@ -97,6 +103,7 @@ grunt.initConfig({
             options: {
                 selector: '.chart'
               , css: 'body { background: red; }'
+              , js: '$("#button").click()'
             }
           , images: [
                 {
@@ -114,6 +121,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
+* 2013-10-28   v0.1.4   Added `js` option to add JavaScript to the page 
 * 2013-08-19   v0.1.3   Fixes `selector` option
 * 2013-08-19   v0.1.2   Added `timeout` option
 * 2013-08-19   v0.1.1   Fixes package.json

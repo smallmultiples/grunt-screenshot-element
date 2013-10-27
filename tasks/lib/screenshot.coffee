@@ -18,6 +18,7 @@ params = [
     '-vw, --viewport-width   [The viewport width, 1024 by default]'
     '-vh, --viewport-height  [The viewport height, 768 by default]'
     '-c,  --css              [CSS rules]'
+    '-j,  --js               [JavaScript script]'
     '-t,  --timeout          [Timeout]'
     '-h,  --help             Show this message'
 ]
@@ -29,7 +30,6 @@ showHelp = ->
     )
     phantom.exit()
 
-passNext = true
 options =
     url           : ''
     selector      : 'body'
@@ -37,40 +37,36 @@ options =
     viewportWidth : 1024
     viewportHeight: 768
     css           : ''
+    js            : ''
     timeout       : 4
 system.args.forEach((arg, i) ->
-    if passNext
-        passNext = false
-        return null
-    console.log arg
     switch arg
         when '-u', '--url'
-            passNext = true
             options.url = system.args[i + 1]
         when '-s', '--selector'
-            passNext = true
             options.selector = system.args[i + 1]
         when '-i', '--image'
-            passNext = true
             options.image = system.args[i + 1]
         when '-vw', '--viewport-width'
-            passNext = true
             options.viewportWidth = system.args[i + 1]
         when '-vh', '--viewport-height'
-            passNext = true
             options.viewportHeight = system.args[i + 1]
         when '-c', '--css'
-            passNext = true
             options.css = system.args[i + 1]
+        when '-j', '--js'
+            options.js = system.args[i + 1]
         when '-t', '--timeout'
-            passNext = true
             options.timeout = system.args[i + 1]
         when '-h', '--help'
             showHelp()
+            return null
 )
 if system.args.length is 1
     showHelp()
 else
+    if options.url is ''
+        console.error('No URL specified!')
+        phantom.exit()
     page.viewportSize =
         width:  options.viewportWidth
         height: options.viewportHeight
@@ -81,11 +77,14 @@ else
         else
             setTimeout(->
                 # Page.clipRect is the clipRect of the selected element
-                page.clipRect = page.evaluate((sel, css) ->
+                page.clipRect = page.evaluate((sel, css, js) ->
                     if css
                         style = document.createElement('style')
                         style.appendChild(document.createTextNode(css))
                         document.head.appendChild(style)
+
+                    if js
+                        eval(js)
 
                     clipRect = document.querySelector(sel).getBoundingClientRect()
                     return {
@@ -94,7 +93,7 @@ else
                         width: clipRect.width
                         height: clipRect.height
                     }
-                , options.selector, options.css)
+                , options.selector, options.css, options.js)
 
                 page.render(options.image)
                 phantom.exit()
