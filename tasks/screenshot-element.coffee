@@ -34,8 +34,8 @@ module.exports = (grunt) ->
                 '-u', image.url
                 '-s', image.selector
                 '-i', image.file
-                '-vw', image.viewport.height
-                '-vh', image.viewport.width
+                '-vh', image.viewport.height
+                '-vw', image.viewport.width
                 '-c', image.css
                 '-j', image.js
                 '-t', image.timeout
