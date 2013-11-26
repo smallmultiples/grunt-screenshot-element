@@ -6,13 +6,15 @@ Copyright (c) 2013 Small Multiples
 Licensed under the MIT license.
 ###
 
+extend = require('lodash.assign')
+clone = require('lodash.clone')
+
 module.exports = (grunt) ->
     childProcess = require('child_process')
     phantomjs = require('phantomjs')
     path = require('path')
 
     phantomBin = phantomjs.path
-    _ = grunt.util._
 
     grunt.registerMultiTask('screenshot-element', 'Take a screenshot of a DOM element.', ->
         # Merge task-specific and/or target-specific options with these defaults.
@@ -26,7 +28,7 @@ module.exports = (grunt) ->
 
         for image in @data.images
             # Add the opions to the image
-            image = _.extend(_.clone(options), image)
+            image = extend(clone(options), image)
 
             # The arguments for the phantomjs task
             childArgs = [
@@ -34,8 +36,8 @@ module.exports = (grunt) ->
                 '-u', image.url
                 '-s', image.selector
                 '-i', image.file
-                '-vw', image.viewport.height
-                '-vh', image.viewport.width
+                '-vh', image.viewport.height
+                '-vw', image.viewport.width
                 '-c', image.css
                 '-j', image.js
                 '-t', image.timeout

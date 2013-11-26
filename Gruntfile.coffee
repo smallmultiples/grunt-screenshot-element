@@ -21,7 +21,7 @@ module.exports = (grunt) ->
                     selector: '.chart'
                 images: [
                     url: 'http://www.google.fr'
-                    file: 'images/google.png'
+                    file: 'images/google.jpg'
                     selector: '#hplogo'
                     css: '
                     body {

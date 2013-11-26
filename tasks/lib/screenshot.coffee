@@ -14,7 +14,7 @@ getDate = ->
 params = [
     '-u,  --url              The page URL'
     '-s,  --selector         [The selector, body by defaut]'
-    '-i,  --image            [The output image, screenshot-DATE.png by default]'
+    '-i,  --image            [The output image, screenshot-DATE by default]'
     '-vw, --viewport-width   [The viewport width, 1024 by default]'
     '-vh, --viewport-height  [The viewport height, 768 by default]'
     '-c,  --css              [CSS rules]'
@@ -33,30 +33,32 @@ showHelp = ->
 options =
     url           : ''
     selector      : 'body'
-    image         : 'screenshot-' + getDate() + '.png'
     viewportWidth : 1024
     viewportHeight: 768
     css           : ''
     js            : ''
     timeout       : 4
+
+options.image = 'screenshot-' + getDate() + '.png'
 system.args.forEach((arg, i) ->
+    option = system.args[i + 1]
     switch arg
         when '-u', '--url'
-            options.url = system.args[i + 1]
+            options.url = option
         when '-s', '--selector'
-            options.selector = system.args[i + 1]
+            options.selector = option
         when '-i', '--image'
-            options.image = system.args[i + 1]
+            options.image = option
         when '-vw', '--viewport-width'
-            options.viewportWidth = system.args[i + 1]
+            options.viewportWidth = option
         when '-vh', '--viewport-height'
-            options.viewportHeight = system.args[i + 1]
+            options.viewportHeight = option
         when '-c', '--css'
-            options.css = system.args[i + 1]
+            options.css = option
         when '-j', '--js'
-            options.js = system.args[i + 1]
+            options.js = option
         when '-t', '--timeout'
-            options.timeout = system.args[i + 1]
+            options.timeout = option
         when '-h', '--help'
             showHelp()
             return null
