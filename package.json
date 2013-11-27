@@ -26,12 +26,12 @@
     "node": ">= 0.8.0"
   },
   "dependencies": {
-    "phantomjs": "~1.9.1-0"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.1",
+    "phantomjs": "~1.9.1-0",
     "lodash.assign": "~2.3.0",
     "lodash.clone": "~2.3.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"

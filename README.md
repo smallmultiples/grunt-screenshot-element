@@ -121,7 +121,8 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
-* 2013-10-28   v0.1.5   Debug viewport and remove grunt.util._
+* 2013-11-28   v0.1.6   Put lodash in dependencies
+* 2013-11-25   v0.1.5   Debug viewport and remove grunt.util._
 * 2013-10-28   v0.1.4   Added `js` option to add JavaScript to the page 
 * 2013-08-19   v0.1.3   Fixes `selector` option
 * 2013-08-19   v0.1.2   Added `timeout` option
