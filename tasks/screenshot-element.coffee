@@ -26,23 +26,29 @@ module.exports = (grunt) ->
             file: 'null'
         )
 
-        for image in @data.images
-            # Add the opions to the image
-            image = extend(clone(options), image)
-
-            # The arguments for the phantomjs task
-            childArgs = [
-                path.join(__dirname, 'lib/screenshot.coffee')
-                '-u', image.url
-                '-s', image.selector
-                '-i', image.file
-                '-vh', image.viewport.height
-                '-vw', image.viewport.width
-                '-c', image.css
-                '-j', image.js
-                '-t', image.timeout
-            ]
-
-            # Launch the phantomjs task
-            childProcess.execFile(phantomBin, childArgs)
+        if @data.images
+            for image in @data.images
+                run(extend(clone(options), image))
+        else
+            run(options)
     )
+
+    run = (image) ->
+        # The arguments for the phantomjs task
+        childArgs = [
+            path.join(__dirname, 'lib/screenshot.coffee')
+            '-u',  image.url
+            '-s',  image.selector
+            '-i',  image.file
+            '-vh', image.viewport.height
+            '-vw', image.viewport.width
+            '-c',  image.css
+            '-j',  image.js
+            '-t',  image.timeout
+            '-p',  JSON.stringify(image.paperSize)
+            '-S',  JSON.stringify(image.settings)
+        ]
+
+        console.log childArgs
+        # Launch the phantomjs task
+        childProcess.execFile(phantomBin, childArgs)

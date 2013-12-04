@@ -80,6 +80,11 @@ Default value: `4`
 
 The number of milliseconds when after which the screenshot will be taken.
 
+#### [options.paperSize](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#wiki-webpage-paperSize)
+
+The `contents` parameter can be a string that will be evaluated, it's necessary if you want to use the `phantom` object.
+
+#### [options.settings](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#settings-object)
 
 ### Images
 `images` are set for each targets, they are an array of objects, you can re-specify `options` for each image.
@@ -121,6 +126,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
+* 2013-12-05   v0.1.7   Add paperSize & settings options (the native one) & make `images` optional
 * 2013-11-28   v0.1.6   Put lodash in dependencies
 * 2013-11-25   v0.1.5   Debug viewport and remove grunt.util._
 * 2013-10-28   v0.1.4   Added `js` option to add JavaScript to the page 

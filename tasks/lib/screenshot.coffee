@@ -20,6 +20,8 @@ params = [
     '-c,  --css              [CSS rules]'
     '-j,  --js               [JavaScript script]'
     '-t,  --timeout          [Timeout]'
+    '-p,  --paperSize        [PhantomJS paperSize options]'
+    '-S,  --settings         [PhantomJS settings options]'
     '-h,  --help             Show this message'
 ]
 
@@ -31,15 +33,15 @@ showHelp = ->
     phantom.exit()
 
 options =
-    url           : ''
-    selector      : 'body'
-    viewportWidth : 1024
+    url:            ''
+    selector:       'body'
+    viewportWidth:  1024
     viewportHeight: 768
-    css           : ''
-    js            : ''
-    timeout       : 4
+    css:            ''
+    js:             ''
+    timeout:        4
+    image:          'screenshot-' + getDate() + '.png'
 
-options.image = 'screenshot-' + getDate() + '.png'
 system.args.forEach((arg, i) ->
     option = system.args[i + 1]
     switch arg
@@ -59,6 +61,10 @@ system.args.forEach((arg, i) ->
             options.js = option
         when '-t', '--timeout'
             options.timeout = option
+        when '-p', '--paperSize'
+            options.paperSize = option
+        when '-S', '--settings'
+            options.settings = option
         when '-h', '--help'
             showHelp()
             return null
@@ -72,6 +78,18 @@ else
     page.viewportSize =
         width:  options.viewportWidth
         height: options.viewportHeight
+
+    if options.paperSize and options.paperSize isnt 'undefined'
+        paperSize = JSON.parse(options.paperSize)
+        for extremity in ['header', 'footer']
+            contents = paperSize[extremity]?.contents
+            if typeof contents is 'string'
+                contents = paperSize[extremity]?.contents = eval(contents)
+        page.paperSize = paperSize
+
+    if options.settings and options.settings isnt 'undefined'
+        page.settings = JSON.parse(options.settings)
+
     page.open(options.url, (status) ->
         if status isnt 'success'
             console.error('Unable to load the address "' + options.url + '"!')
@@ -90,12 +108,12 @@ else
 
                     clipRect = document.querySelector(sel).getBoundingClientRect()
                     return {
-                        top: clipRect.top
-                        left: clipRect.left
-                        width: clipRect.width
+                        top:    clipRect.top
+                        left:   clipRect.left
+                        width:  clipRect.width
                         height: clipRect.height
                     }
-                , options.selector, options.css, options.js)
+                options.selector, options.css, options.js)
 
                 page.render(options.image)
                 phantom.exit()
