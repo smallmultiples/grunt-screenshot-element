@@ -49,6 +49,5 @@ module.exports = (grunt) ->
             '-S',  JSON.stringify(image.settings)
         ]
 
-        console.log childArgs
         # Launch the phantomjs task
         childProcess.execFile(phantomBin, childArgs)
