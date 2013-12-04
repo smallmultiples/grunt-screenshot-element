@@ -1,7 +1,7 @@
 {
   "name": "grunt-screenshot-element",
   "description": "Take a screenshot of a DOM element.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "homepage": "https://github.com/smallmultiples/grunt-screenshot-element",
   "author": {
     "name": "Small Multiples",
