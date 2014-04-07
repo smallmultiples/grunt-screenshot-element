@@ -28,7 +28,8 @@
   "dependencies": {
     "phantomjs": "~1.9.1-0",
     "lodash.assign": "~2.3.0",
-    "lodash.clone": "~2.3.0"
+    "lodash.clone": "~2.3.0",
+    "async": "~0.6.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1"

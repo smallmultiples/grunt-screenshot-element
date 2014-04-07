@@ -80,6 +80,12 @@ Default value: `4`
 
 The number of milliseconds when after which the screenshot will be taken.
 
+### options.limit
+Type: `Number`
+Default: Number of CPU cores (`require('os').cpus().length`) with a minimum of 2
+
+Limit of how many PhantomJS instances to run concurrently.
+
 #### [options.paperSize](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#wiki-webpage-paperSize)
 
 The `contents` parameter can be a string that will be evaluated, it's necessary if you want to use the `phantom` object.
