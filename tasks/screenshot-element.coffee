@@ -8,13 +8,12 @@ Licensed under the MIT license.
 
 extend = require('lodash.assign')
 clone = require('lodash.clone')
+async = require('async')
+os = require('os')
 
 module.exports = (grunt) ->
-    childProcess = require('child_process')
     phantomjs = require('phantomjs')
     path = require('path')
-
-    phantomBin = phantomjs.path
 
     grunt.registerMultiTask('screenshot-element', 'Take a screenshot of a DOM element.', ->
         # Merge task-specific and/or target-specific options with these defaults.
@@ -24,16 +23,16 @@ module.exports = (grunt) ->
                 width: 1024
                 height: 768
             file: 'null'
+            limit: os.cpus().length
         )
 
-        if @data.images
-            for image in @data.images
-                run(extend(clone(options), image))
-        else
-            run(options)
+        # run asynchronously
+        async.eachLimit @data.images or [{}], options.limit,
+            (image, next) -> run(extend(clone(options), image), next),
+            @async()
     )
 
-    run = (image) ->
+    run = (image, done) ->
         # The arguments for the phantomjs task
         childArgs = [
             path.join(__dirname, 'lib/screenshot.coffee')
@@ -50,4 +49,5 @@ module.exports = (grunt) ->
         ]
 
         # Launch the phantomjs task
-        childProcess.execFile(phantomBin, childArgs)
+        # use grunt for better output
+        grunt.util.spawn {cmd: phantomjs.path, args: childArgs}, done
