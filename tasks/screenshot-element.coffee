@@ -27,9 +27,10 @@ module.exports = (grunt) ->
         )
 
         # run asynchronously
-        async.eachLimit @data.images or [{}], options.limit,
-            (image, next) -> run(extend(clone(options), image), next),
-            @async()
+        async.eachLimit(@data.images or [{}], options.limit, (image, next) ->
+            run(extend(clone(options), image), next)
+        @async())
+
     )
 
     run = (image, done) ->
@@ -50,4 +51,4 @@ module.exports = (grunt) ->
 
         # Launch the phantomjs task
         # use grunt for better output
-        grunt.util.spawn {cmd: phantomjs.path, args: childArgs}, done
+        grunt.util.spawn(cmd: phantomjs.path, args: childArgs, done)
