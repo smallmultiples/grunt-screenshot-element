@@ -132,6 +132,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
+* 2014-04-11   v0.1.9   Added limit option
 * 2013-12-05   v0.1.7   Add paperSize & settings options (the native one) & make `images` optional
 * 2013-11-28   v0.1.6   Put lodash in dependencies
 * 2013-11-25   v0.1.5   Debug viewport and remove grunt.util._
